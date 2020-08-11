@@ -16,12 +16,14 @@ var baseIsEqualDeep = require('./_baseIsEqualDeep'),
  * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
  */
 function baseIsEqual(value, other, bitmask, customizer, stack) {
+  // 基本类型直接返回
   if (value === other) {
     return true;
   }
   if (value == null || other == null || (!isObjectLike(value) && !isObjectLike(other))) {
     return value !== value && other !== other;
   }
+  // 递归 O(n^n)
   return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
 }
 

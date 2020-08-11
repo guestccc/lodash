@@ -8,6 +8,7 @@ var COMPARE_PARTIAL_FLAG = 1,
 /**
  * The base implementation of `_.isMatch` without support for iteratee shorthands.
  *
+ * @ccc 1. 一层对象，2. 非一层对象
  * @private
  * @param {Object} object The object to inspect.
  * @param {Object} source The object of property values to match.
@@ -19,16 +20,18 @@ function baseIsMatch(object, source, matchData, customizer) {
   var index = matchData.length,
       length = index,
       noCustomizer = !customizer;
-
+  
+  // 给定对象是 null，返回源对象的长度取反
   if (object == null) {
     return !length;
   }
   object = Object(object);
   while (index--) {
     var data = matchData[index];
-    if ((noCustomizer && data[2])
-          ? data[1] !== object[data[0]]
-          : !(data[0] in object)
+    // TODO: ccc 基本类型
+    if ((noCustomizer && data[2]) // 没有比较函数 && 源对象的值是基本类型的
+          ? data[1] !== object[data[0]] // 判读值是否不相等
+          : !(data[0] in object) // 判断key是否不在给定对象
         ) {
       return false;
     }
@@ -39,11 +42,13 @@ function baseIsMatch(object, source, matchData, customizer) {
         objValue = object[key],
         srcValue = data[1];
 
-    if (noCustomizer && data[2]) {
+    // TODO: ccc 基本类型 这一块其实可以整合在上面
+    if (noCustomizer && data[2]) { // 没有比较函数 && 源对象的值是基本类型的
       if (objValue === undefined && !(key in object)) {
         return false;
       }
     } else {
+      // TODO: ccc 引用类型 || 有比较函数
       var stack = new Stack;
       if (customizer) {
         var result = customizer(objValue, srcValue, key, object, source, stack);

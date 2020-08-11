@@ -41,14 +41,19 @@ var nativeMax = Math.max;
  * // => 2
  */
 function findIndex(array, predicate, fromIndex) {
+  // ccc 健壮性
   var length = array == null ? 0 : array.length;
   if (!length) {
     return -1;
   }
+  // ccc 拿到fromIndex
   var index = fromIndex == null ? 0 : toInteger(fromIndex);
+  // ccc 小于零，代表从右起
   if (index < 0) {
+    // 避免超出
     index = nativeMax(length + index, 0);
   }
+  // baseIteratee 内部处理多类型，数组，对象，函数 返回判定函数
   return baseFindIndex(array, baseIteratee(predicate, 3), index);
 }
 

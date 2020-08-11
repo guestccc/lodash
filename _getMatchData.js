@@ -15,9 +15,10 @@ function getMatchData(object) {
   while (length--) {
     var key = result[length],
         value = object[key];
-
+  // ccc isStrictComparable 返回 booleam （不是 NaN && 不是对象）
     result[length] = [key, value, isStrictComparable(value)];
   }
+  // [['key', 'value', false]]
   return result;
 }
 

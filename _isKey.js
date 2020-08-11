@@ -8,6 +8,7 @@ var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
 /**
  * Checks if `value` is a property name and not a property path.
  *
+ * @ccc 判断是不是普通的 key
  * @private
  * @param {*} value The value to check.
  * @param {Object} [object] The object to query keys on.

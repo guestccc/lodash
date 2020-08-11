@@ -8,6 +8,7 @@
  * @returns {Function} Returns the new spec function.
  */
 function matchesStrictComparable(key, srcValue) {
+  // TODO: 断言/Array/简单 -- 返回函数
   return function(object) {
     if (object == null) {
       return false;
