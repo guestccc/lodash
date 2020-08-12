@@ -13,11 +13,13 @@ var nativeMin = Math.min;
  * for iteratee shorthands, that accepts an array of arrays to inspect.
  *
  * @private
- * @param {Array} arrays The arrays to inspect.
+ * @param {Array} arrays The arrays to inspect. [[],[],[]]
  * @param {Function} [iteratee] The iteratee invoked per element.
  * @param {Function} [comparator] The comparator invoked per element.
  * @returns {Array} Returns the new array of shared values.
  */
+// intersection -- 给定数组中都存在的值，交集
+// 对于多个数组(array1、array2、array3 … )，由于我们最终想要的是存在于每个数组中的元素，所以我们选取array1数组进行遍历，让array1其中的每个元素与剩余数组（array2、array3 …）进行对比，如果该元素在剩余数组中都存在，那么该元素就是我们最终想要的元素；
 function baseIntersection(arrays, iteratee, comparator) {
   var includes = comparator ? arrayIncludesWith : arrayIncludes,
       length = arrays[0].length,
@@ -44,6 +46,7 @@ function baseIntersection(arrays, iteratee, comparator) {
 
   outer:
   while (++index < length && result.length < maxLength) {
+    // 拿第一个数组 去和剩下的所有数组进行对比
     var value = array[index],
         computed = iteratee ? iteratee(value) : value;
 

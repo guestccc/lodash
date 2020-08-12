@@ -53,7 +53,7 @@ function findIndex(array, predicate, fromIndex) {
     // 避免超出
     index = nativeMax(length + index, 0);
   }
-  // baseIteratee 内部处理多类型，数组，对象，函数 返回判定函数
+  // TODO: baseIteratee 内部处理多类型，数组，对象，函数 返回判定函数
   return baseFindIndex(array, baseIteratee(predicate, 3), index);
 }
 

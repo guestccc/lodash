@@ -166,8 +166,10 @@ function debounce(func, wait, options) {
     lastArgs = arguments;
     lastThis = this;
     lastCallTime = time;
-
+    //isInvoking可以暂时理解为第一次或者当上一次触发时间超过设置wait的时候为真
     if (isInvoking) {
+
+     // 第一次触发的时候没有加timer
       if (timerId === undefined) {
         return leadingEdge(lastCallTime);
       }
@@ -178,6 +180,7 @@ function debounce(func, wait, options) {
         return invokeFunc(lastCallTime);
       }
     }
+    // 第一次触发的时候添加定时器
     if (timerId === undefined) {
       timerId = setTimeout(timerExpired, wait);
     }

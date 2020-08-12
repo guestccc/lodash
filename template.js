@@ -149,6 +149,7 @@ function template(string, options, guard) {
   string = toString(string);
   options = assignInWith({}, options, settings, customDefaultsAssignIn);
 
+  // 导入对象到模板中作为自由变量 例如上面例子中的jq
   var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
       importsKeys = keys(imports),
       importsValues = baseValues(imports, importsKeys);
@@ -217,6 +218,8 @@ function template(string, options, guard) {
     .replace(reEmptyStringMiddle, '$1')
     .replace(reEmptyStringTrailing, '$1;');
 
+
+    // TODO: 最主要的这段，这段交由Function执行，
   // Frame code as the function body.
   source = 'function(' + (variable || 'obj') + ') {\n' +
     (variable
@@ -235,7 +238,7 @@ function template(string, options, guard) {
     ) +
     source +
     'return __p\n}';
-
+  // TODO: 函数传入字符串，来执行js代码
   var result = attempt(function() {
     return Function(importsKeys, sourceURL + 'return ' + source)
       .apply(undefined, importsValues);
